@@ -1,0 +1,261 @@
+<div id="vk-focus-app">
+  <style>
+    #vk-focus-app{background:#f6f1e8;color:#101820;border-radius:0;padding:10px;font-family:"Segoe UI",Aptos,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:500;line-height:1.38}
+    #vk-focus-app *{box-sizing:border-box}
+    #vk-focus-app button{font:inherit}
+    #vk-focus-app .wrap{width:100%;max-width:1100px;margin:0 auto}
+    #vk-focus-app .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;background:#0d3c49;color:#fff;border:1px solid #b78638;border-radius:18px;padding:12px 14px}
+    #vk-focus-app .kicker{font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#f1c66f}
+    #vk-focus-app h2{font-family:Georgia,"Times New Roman",serif;font-size:clamp(22px,4vw,31px);line-height:1;margin:4px 0 0}
+    #vk-focus-app .tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    #vk-focus-app .tab{min-height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:#174e5b;color:#fff;padding:7px 11px;font-size:11px;font-weight:900;cursor:pointer}
+    #vk-focus-app .tab[aria-pressed="true"]{background:#f8edd7;color:#12323a;border-color:#f8edd7}
+    #vk-focus-app .workspace{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:10px;margin-top:10px}
+    #vk-focus-app .left,#vk-focus-app .right{min-width:0;display:grid;gap:10px;align-content:start}
+    #vk-focus-app .inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    #vk-focus-app .concept{min-width:0;border:1px solid #d5c7b4;background:#fffaf2;color:#101820;border-radius:14px;padding:10px;text-align:left;cursor:pointer;position:relative}
+    #vk-focus-app .concept .emoji{font-size:20px;display:block;margin-bottom:4px}
+    #vk-focus-app .concept strong{display:block;font-size:13.5px;font-weight:800;line-height:1.2;color:#0f1720}
+    #vk-focus-app .concept small{display:block;margin-top:3px;font-size:10.5px;font-weight:600;color:#48423c;line-height:1.3}
+    #vk-focus-app .concept.active{background:#fff3d4;border-color:#d8a648;box-shadow:0 0 0 2px rgba(216,166,72,.16)}
+    #vk-focus-app .hub{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:8px}
+    #vk-focus-app .attention,#vk-focus-app .principle{min-width:0;border-radius:15px;padding:12px;text-align:left;cursor:pointer;border:1px solid}
+    #vk-focus-app .attention{background:#0b4a59;color:#fff;border-color:#c08b39}
+    #vk-focus-app .attention strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:21px;margin-bottom:4px}
+    #vk-focus-app .attention span{font-size:11.5px;font-weight:600;color:#eef6f7}
+    #vk-focus-app .attention-state{display:inline-flex!important;align-items:center;gap:6px;margin-top:8px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.1);font-size:9px!important;font-weight:900;text-transform:uppercase;color:#fff!important}
+    #vk-focus-app .pulse{width:6px;height:6px;border-radius:50%;background:#f1c66f;display:inline-block}
+    #vk-focus-app .principle{background:#fff6df;border-color:#d8b86f;color:#1f2933}
+    #vk-focus-app .principle b{display:block;color:#8a5d13;font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+    #vk-focus-app .principle p{margin:0;font-family:"Segoe UI",Aptos,ui-sans-serif,system-ui,sans-serif;font-size:13.5px;font-weight:700;line-height:1.34;color:#20242a}
+    #vk-focus-app .principle-meta{display:flex;justify-content:space-between;gap:8px;margin-top:7px;padding-top:6px;border-top:1px solid #e1cb98;font-size:9.5px;font-weight:600;color:#5d503b}
+    #vk-focus-app .principle-meta strong{color:#0d3c49}
+    #vk-focus-app .stage{border-radius:16px;border:1px solid #d8cdbd;background:#fffaf3;padding:10px}
+    #vk-focus-app .stage-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+    #vk-focus-app .stage-title{display:flex;align-items:center;gap:8px;min-width:0}
+    #vk-focus-app .badge{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto}
+    #vk-focus-app .captured .badge{background:#f3d3cc}
+    #vk-focus-app .mastered .badge{background:#d8ecd5}
+    #vk-focus-app .stage h3{font-family:Georgia,"Times New Roman",serif;font-size:17px;margin:0}
+    #vk-focus-app .stage small{font-size:10px;font-weight:600;color:#4e4944}
+    #vk-focus-app .captured h3{color:#8b2e28}
+    #vk-focus-app .mastered h3{color:#2b6339}
+    #vk-focus-app .step-counter{font-size:9px;font-weight:900;color:#7d7367;background:#f0e8dc;border-radius:999px;padding:5px 8px;white-space:nowrap}
+    #vk-focus-app .step-display{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid;border-radius:14px;padding:11px;background:#fff}
+    #vk-focus-app .captured .step-display{border-color:#e5b8ad;background:#fff8f5}
+    #vk-focus-app .mastered .step-display{border-color:#bad6b7;background:#f8fff7}
+    #vk-focus-app .step-num{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:16px;font-weight:900}
+    #vk-focus-app .captured .step-num{background:#f4ddd8;color:#9c3b32}
+    #vk-focus-app .mastered .step-num{background:#e1efde;color:#347244}
+    #vk-focus-app .step-copy strong{display:block;font-size:14px;line-height:1.2}
+    #vk-focus-app .step-copy span{display:block;font-size:11px;font-weight:600;color:#403b36;margin-top:3px}
+    #vk-focus-app .nav{display:flex;gap:5px}
+    #vk-focus-app .nav button{width:34px;height:34px;border-radius:10px;border:1px solid #d8cdbd;background:#fff;color:#4c453d;font-weight:900;cursor:pointer}
+    #vk-focus-app .rail{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:8px}
+    #vk-focus-app .dot{min-height:30px;border-radius:9px;border:1px solid #ddd1c2;background:#fff;padding:3px;font-size:9px;font-weight:900;color:#6d6459;cursor:pointer}
+    #vk-focus-app .captured .dot.active{background:#f1d5cf;color:#8b2e28;border-color:#d7968b}
+    #vk-focus-app .mastered .dot.active{background:#dcedd8;color:#2b6339;border-color:#92bd8d}
+    #vk-focus-app .mode-card{border-radius:16px;padding:11px;border:1px solid #d9cdbb;background:#efe7d9}
+    #vk-focus-app .mode-card b{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#4e4438}
+    #vk-focus-app .mode-card p{margin:4px 0 0;font-size:12px;font-weight:600;color:#332f2a}
+    #vk-focus-app .detail{border-radius:16px;padding:12px;background:#fff8e9;border:1px solid #e3c98f;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px}
+    #vk-focus-app .detail-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#f2dfae;font-size:18px}
+    #vk-focus-app .detail .label{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#8b671f}
+    #vk-focus-app .detail h3{font-family:Georgia,"Times New Roman",serif;font-size:16px;margin:2px 0 3px}
+    #vk-focus-app .detail p{margin:0;font-size:11.5px;font-weight:600;color:#35312d;line-height:1.4}
+    #vk-focus-app .ojas{border-radius:14px;padding:10px;background:#f3eef8;border:1px solid #d7cde5;font-size:10.5px;font-weight:600;color:#443d4c}
+    #vk-focus-app .note{font-size:9.5px;font-weight:600;color:#5b554f}
+    #vk-focus-app .hidden{display:none!important}
+    #vk-focus-app button:focus-visible{outline:3px solid #e8ad47;outline-offset:2px}
+    @media(max-width:760px){
+      #vk-focus-app{padding:8px}
+      #vk-focus-app .topbar{grid-template-columns:1fr;padding:10px}
+      #vk-focus-app .tabs{justify-content:flex-start}
+      #vk-focus-app .workspace{grid-template-columns:1fr}
+      #vk-focus-app .right{grid-template-columns:1fr 1fr}
+      #vk-focus-app .right .detail{grid-column:1/-1}
+      #vk-focus-app .right .ojas{grid-column:1/-1}
+    }
+    @media(max-width:500px){
+      #vk-focus-app .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+      #vk-focus-app .tab{padding:6px 5px;font-size:9.5px}
+      #vk-focus-app .inputs{grid-template-columns:repeat(3,minmax(0,1fr))}
+      #vk-focus-app .concept{padding:8px 7px}
+      #vk-focus-app .concept .emoji{font-size:17px}
+      #vk-focus-app .concept strong{font-size:11px}
+      #vk-focus-app .concept small{font-size:9px}
+      #vk-focus-app .hub{grid-template-columns:1fr}
+      #vk-focus-app .right{grid-template-columns:1fr}
+      #vk-focus-app .rail{grid-template-columns:repeat(7,1fr)}
+      #vk-focus-app .dot{font-size:8px;padding:2px}
+      #vk-focus-app .step-display{grid-template-columns:38px minmax(0,1fr) auto;padding:9px;gap:8px}
+      #vk-focus-app .step-num{width:36px;height:36px}
+    }
+  </style>
+
+  <div class="wrap">
+    <section class="topbar">
+      <div><div class="kicker">ॐ Swami Vivekananda · mental mastery</div><h2>Attention, Desire & Mastery</h2></div>
+      <div class="tabs" aria-label="Choose a view">
+        <button type="button" class="tab" data-mode="overview" aria-pressed="true">Overview</button>
+        <button type="button" class="tab" data-mode="captured" aria-pressed="false">Captured</button>
+        <button type="button" class="tab" data-mode="mastered" aria-pressed="false">Mastered</button>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="left">
+        <section class="inputs" aria-label="Starting forces">
+          <button type="button" class="concept" data-key="stimulus" data-icon="👁️"><span class="emoji">👁️</span><strong>Stimulus</strong><small>What the senses meet</small></button>
+          <button type="button" class="concept" data-key="entertainment" data-icon="▶️"><span class="emoji">▶️</span><strong>Entertainment</strong><small>Enjoyment and novelty</small></button>
+          <button type="button" class="concept" data-key="desire" data-icon="🔥"><span class="emoji">🔥</span><strong>Desire</strong><small>Wants and inner pulls</small></button>
+        </section>
+
+        <section class="hub">
+          <button type="button" class="attention" id="attention-card">
+            <strong id="attention-title">🧘 Attention</strong>
+            <span id="attention-copy">The mind's spotlight. The real question is whether it can be placed, held, withdrawn and redirected voluntarily.</span>
+            <span class="attention-state"><i class="pulse"></i><span id="attention-state">Choose a starting force</span></span>
+          </button>
+          <button type="button" class="principle" id="principle-card">
+            <b>Core principle · <span id="principle-count">1 / 4</span></b>
+            <p id="principle-text">The issue is whether the mind can <strong>enjoy, stop, detach and return</strong> to its chosen work.</p>
+            <div class="principle-meta"><span>Linked concept</span><strong id="linked-concept">Whole system</strong></div>
+          </button>
+        </section>
+
+        <section class="stage captured hidden" id="captured-stage">
+          <div class="stage-head"><div class="stage-title"><div class="badge">⚠️</div><div><h3>Captured attention</h3><small>Impulse and habit increasingly lead</small></div></div><span class="step-counter" id="captured-counter">1 / 7</span></div>
+          <div class="step-display">
+            <div class="step-num" id="captured-num">1</div>
+            <div class="step-copy"><strong id="captured-title">Repeated stimulation</strong><span id="captured-summary">Impulse repeatedly gets the spotlight</span></div>
+            <div class="nav"><button type="button" data-dir="-1" data-path="captured" aria-label="Previous captured step">‹</button><button type="button" data-dir="1" data-path="captured" aria-label="Next captured step">›</button></div>
+          </div>
+          <div class="rail" id="captured-rail"></div>
+        </section>
+
+        <section class="stage mastered hidden" id="mastered-stage">
+          <div class="stage-head"><div class="stage-title"><div class="badge">🌿</div><div><h3>Mastered attention</h3><small>Discrimination and will increasingly guide</small></div></div><span class="step-counter" id="mastered-counter">1 / 7</span></div>
+          <div class="step-display">
+            <div class="step-num" id="mastered-num">1</div>
+            <div class="step-copy"><strong id="mastered-title">Awareness</strong><span id="mastered-summary">Observe before reacting</span></div>
+            <div class="nav"><button type="button" data-dir="-1" data-path="mastered" aria-label="Previous mastered step">‹</button><button type="button" data-dir="1" data-path="mastered" aria-label="Next mastered step">›</button></div>
+          </div>
+          <div class="rail" id="mastered-rail"></div>
+        </section>
+
+        <section class="mode-card" id="overview-card">
+          <b>Whole system at a glance</b>
+          <p><strong>Downward:</strong> stimulation → novelty → craving → indiscipline → scattered mind. <strong>Upward:</strong> awareness → detachment → chastity → discipline → concentration → knowledge.</p>
+        </section>
+      </div>
+
+      <aside class="right">
+        <section class="detail" aria-live="polite">
+          <div class="detail-icon" id="detail-icon">🧠</div>
+          <div><div class="label">Selected concept</div><h3 id="detail-title">The mind's central task</h3><p id="detail-text">A trained mind can place attention, hold it, withdraw it and redirect it voluntarily.</p></div>
+        </section>
+        
+        <div class="ojas"><b>Where Ojas fits:</b> in Vivekananda's Raja Yoga framework, controlled sexual energy is associated with Ojas, understood as transformed vital or spiritual power. This is a yogic concept, not automatically a modern biomedical claim.</div>
+        <div class="note">Interpretive synthesis of Vivekananda's teachings on kāma, brahmacharya, detachment, concentration and Ojas.</div>
+      </aside>
+    </section>
+  </div>
+
+  <script>
+    (function(){
+      const root=document.getElementById('vk-focus-app');
+      if(!root)return;
+      const tabs=[...root.querySelectorAll('.tab')];
+      const conceptCards=[...root.querySelectorAll('.concept')];
+      const capturedStage=root.querySelector('#captured-stage');
+      const masteredStage=root.querySelector('#mastered-stage');
+      const overviewCard=root.querySelector('#overview-card');
+      const detailIcon=root.querySelector('#detail-icon');
+      const detailTitle=root.querySelector('#detail-title');
+      const detailText=root.querySelector('#detail-text');
+      const attentionTitle=root.querySelector('#attention-title');
+      const attentionCopy=root.querySelector('#attention-copy');
+      const attentionState=root.querySelector('#attention-state');
+      const principleCard=root.querySelector('#principle-card');
+      const principleText=root.querySelector('#principle-text');
+      const principleCount=root.querySelector('#principle-count');
+      const linkedConcept=root.querySelector('#linked-concept');
+
+      const concepts={
+        stimulus:{icon:'👁️',title:'Stimulus / experience',attention:'👁️ Attention meets a stimulus',copy:'A sight, sound, memory or sensation enters awareness. The question is whether attention remains free or becomes captured.',state:'Stimulus entered awareness',principle:'A stimulus is not bondage by itself. <strong>Bondage begins when attention cannot disengage.</strong>',detail:'Anything the senses encounter can become an object of attention. Freedom depends on whether the mind can disengage and redirect itself when required.'},
+        entertainment:{icon:'▶️',title:'Entertainment',attention:'▶️ Attention meets entertainment',copy:'Pleasure and stories can absorb the mind. The test is whether enjoyment remains voluntary and can end when chosen work calls.',state:'Enjoyment is holding attention',principle:'Entertainment is not automatically the enemy. The test is whether the mind can <strong>enjoy, stop, detach and return</strong>.',detail:'Entertainment becomes a problem when the mind repeatedly seeks novelty and loses the ability to stop, detach and return to chosen work.'},
+        desire:{icon:'🔥',title:'Desire',attention:'🔥 Attention meets desire',copy:'Desire pulls the mind toward what it wants. The decisive issue is whether desire is observed or allowed to dictate the next action.',state:'Desire is pulling attention',principle:'Desire may arise without ruling the mind. <strong>Freedom lies in what happens to attention next.</strong>',detail:'Desire can arise without becoming bondage if attention remains under voluntary control.'}
+      };
+
+      const steps={
+        captured:[
+          ['Repeated stimulation','Impulse repeatedly gets the spotlight','Repeated amusement, replay, fantasy or novelty keeps pulling attention back and strengthens the tendency to seek more stimulation.'],
+          ['Novelty chasing','Harder to stay with one object','The mind starts expecting constant change. Remaining with one difficult or quiet object becomes less attractive.'],
+          ['Indiscipline','Impulse defeats chosen duty','Immediate impulse repeatedly defeats chosen intention: the person knows the duty but abandons it for the stronger present attraction.'],
+          ['Lust / craving','Strong pulls dominate consciousness','Pleasure begins to command attention. Sexual desire may become lust; entertainment may become compulsive novelty-seeking. The shared structure is loss of voluntary control.'],
+          ['Attachment','Harder to let the object go','The mind returns to the object even after another task has been consciously chosen, weakening voluntary withdrawal.'],
+          ['Scattered mind','Attention becomes fragmented','Competing thought-waves occupy mental space. The more directions attention is pulled in, the less one-pointed the mind becomes.'],
+          ['Weak concentration','Less power to stay with one object','When attention is repeatedly captured, sustained voluntary concentration becomes harder, weakening deep study and insight.']
+        ],
+        mastered:[
+          ['Awareness','Observe before reacting','The attraction, amusement, urge or sexual impulse is noticed without automatically obeying it. Observation creates space between awareness and impulse.'],
+          ['Detachment','See without clinging','The mind deliberately releases the object. Vivekananda treats the power to detach as the necessary counterpart of concentration.'],
+          ['Chastity / brahmacharya','Restraint protects inner freedom','For Vivekananda, brahmacharya extends through thought, word and deed. Psychologically, it protects freedom of attention from domination by sexual craving.'],
+          ['Discipline','Chosen intention becomes stronger','Discipline is the positive counterpart of indiscipline: choosing the object and direction of attention, then staying with that choice consistently.'],
+          ['Self-control','Impulse no longer decides automatically','Self-control is not the absence of impulses; it is the ability to decide what happens after an impulse appears.'],
+          ['Concentration','The mind becomes one-pointed','Attention is gathered deliberately on one chosen object and held there. Vivekananda repeatedly treats concentration as the key instrument of knowledge.'],
+          ['Deep knowledge','Deeper penetration of the chosen object','A steadier, more concentrated mind can examine its object more deeply. Self-control, education and spiritual knowledge become one connected system.']
+        ]
+      };
+
+      const index={captured:0,mastered:0};
+      const fields={
+        captured:{num:root.querySelector('#captured-num'),title:root.querySelector('#captured-title'),summary:root.querySelector('#captured-summary'),counter:root.querySelector('#captured-counter'),rail:root.querySelector('#captured-rail')},
+        mastered:{num:root.querySelector('#mastered-num'),title:root.querySelector('#mastered-title'),summary:root.querySelector('#mastered-summary'),counter:root.querySelector('#mastered-counter'),rail:root.querySelector('#mastered-rail')}
+      };
+
+      function updateDetail(icon,title,text){detailIcon.textContent=icon;detailTitle.textContent=title;detailText.textContent=text;}
+      function renderRail(path){
+        fields[path].rail.innerHTML='';
+        steps[path].forEach((step,i)=>{
+          const btn=document.createElement('button');
+          btn.type='button';btn.className='dot'+(i===index[path]?' active':'');btn.textContent=String(i+1);btn.setAttribute('aria-label','Go to '+step[0]);
+          btn.addEventListener('click',()=>{index[path]=i;renderStep(path);});
+          fields[path].rail.appendChild(btn);
+        });
+      }
+      function renderStep(path){
+        const step=steps[path][index[path]];const f=fields[path];
+        f.num.textContent=String(index[path]+1);f.title.textContent=step[0];f.summary.textContent=step[1];f.counter.textContent=(index[path]+1)+' / '+steps[path].length;
+        renderRail(path);updateDetail(path==='captured'?'⚠️':'🌿',step[0],step[2]);
+      }
+      function setMode(mode){
+        tabs.forEach(tab=>tab.setAttribute('aria-pressed',String(tab.dataset.mode===mode)));
+        capturedStage.classList.toggle('hidden',mode!=='captured');masteredStage.classList.toggle('hidden',mode!=='mastered');overviewCard.classList.toggle('hidden',mode!=='overview');
+        if(mode==='overview')updateDetail('🧠','Whole system','The downward loop shows attention progressively captured by stimulation and craving. The upward loop shows attention increasingly mastered through awareness, detachment, chastity, discipline and concentration.');
+        if(mode==='captured')renderStep('captured');
+        if(mode==='mastered')renderStep('mastered');
+      }
+
+      tabs.forEach(tab=>tab.addEventListener('click',()=>setMode(tab.dataset.mode)));
+      conceptCards.forEach(card=>card.addEventListener('click',()=>{
+        const c=concepts[card.dataset.key];conceptCards.forEach(item=>item.classList.toggle('active',item===card));
+        attentionTitle.textContent=c.attention;attentionCopy.textContent=c.copy;attentionState.textContent=c.state;linkedConcept.textContent=c.title;principleText.innerHTML=c.principle;principleCount.textContent='Context';updateDetail(c.icon,c.title,c.detail);
+      }));
+      root.querySelectorAll('.nav button').forEach(btn=>btn.addEventListener('click',()=>{
+        const path=btn.dataset.path;index[path]=(index[path]+Number(btn.dataset.dir)+steps[path].length)%steps[path].length;renderStep(path);
+      }));
+
+      const principles=[
+        ['The issue is whether the mind can <strong>enjoy, stop, detach and return</strong> to its chosen work.','Enjoyment without bondage','Entertainment is not automatically the enemy. The test is whether you remain free to stop and redirect attention when a higher duty calls.'],
+        ['Concentration is incomplete without the power to <strong>withdraw attention</strong> from the previous object.','Concentration + detachment','A strong mind can attach itself fully to one object and then release that object when it chooses.'],
+        ['Chastity is part of a wider discipline of <strong>thought, speech and action</strong>, protecting freedom from compulsive craving.','Chastity as attentional discipline','Brahmacharya includes the mental discipline that prevents sexual craving from monopolising attention.'],
+        ['Knowledge deepens when attention becomes <strong>steady, voluntary and one-pointed</strong>.','Attention becomes knowledge','Vivekananda treats concentrated attention as the instrument through which the mind penetrates an object and acquires deeper knowledge.']
+      ];
+      let pIndex=0;
+      principleCard.addEventListener('click',()=>{pIndex=(pIndex+1)%principles.length;principleText.innerHTML=principles[pIndex][0];principleCount.textContent=(pIndex+1)+' / '+principles.length;linkedConcept.textContent='Whole system';updateDetail('💡',principles[pIndex][1],principles[pIndex][2]);});
+      setMode('overview');
+    })();
+  </script>
+</div>
